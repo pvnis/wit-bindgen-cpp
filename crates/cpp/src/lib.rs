@@ -463,9 +463,9 @@ impl WorldGenerator for Cpp {
         _files: &mut Files,
     ) -> anyhow::Result<()> {
         let name = WorldKey::Name(resolve.worlds[world].name.clone());
-        // let wasm_import_module = resolve.name_world_key(&name);
+        let wasm_import_module = resolve.name_world_key(&name);
         let binding = Some(name);
-        let mut gen = self.interface(resolve, binding.as_ref(), false, None);
+        let mut gen = self.interface(resolve, binding.as_ref(), false, Some(wasm_import_module));
         let namespace = namespace(resolve, &TypeOwner::World(world), true, &gen.gen.opts);
 
         for (_name, func) in funcs.iter() {
